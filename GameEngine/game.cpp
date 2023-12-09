@@ -34,6 +34,10 @@ const char* medKitImagePath{ "img/medkit.png" };
 SDL_Texture* medKit;
 int medKit_w = 120;
 int medKit_h = 120;
+int medKit_X;
+int medKit_Y;
+float delayBetweenTeleport = 3000;
+float teleportationCycle = 0;
 
 // Text Variables
 const char* lazyFontPath{ "font/lazy.ttf" };
@@ -62,9 +66,7 @@ int main(int argc, char* args[])
 	medKit = WindowRenderer.LoadTexture(medKitImagePath);
 	if (medKit == nullptr) return 0;
 
-	//crate medkit coordinates
-	int medKit_X = rand() % SCREEN_WIDTH;
-	int medKit_Y = rand() % SCREEN_HEIGHT;
+
 
 
 	printf("%d\n", medKit_X);
@@ -106,9 +108,15 @@ void TickGame()
 	Uint32 const MillisecondsElapsedSinceStart = SDL_GetTicks(); // can be used, to see, how much time in ms has passed since app start
 	TimeInSeconds = MillisecondsElapsedSinceStart / 1000; // millisecond to second conversion
 	//printf("Time Elapsed In Seconds %d\n", static_cast<int>(TimeInSeconds));
-		 printf("%d\n", pik_x);
-		 printf("%d\n", pik_y);
+	
 
+		 if (teleportationCycle * delayBetweenTeleport < MillisecondsElapsedSinceStart) {
+			 teleportationCycle +=1;
+			 //crate medkit coordinates
+			 medKit_X = rand() % SCREEN_WIDTH;
+			 medKit_Y = rand() % SCREEN_HEIGHT;
+
+		 }
 	HandleInput();
 	PlayerCharacter->Tick();
 }
