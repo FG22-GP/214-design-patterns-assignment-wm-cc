@@ -8,7 +8,6 @@
 void TickGame();
 void HandleInput();
 PlayerCharacter* GetPlayerCharacter();
-
 //Screen dimension constants
 const int SCREEN_WIDTH = 1024;
 const int SCREEN_HEIGHT = 768;
@@ -17,6 +16,11 @@ const int SCREEN_HEIGHT = 768;
 float DeltaTime;
 float TimeInSeconds;
 
+//Collision
+SDL_Rect GetPlayerCollider();
+SDL_Rect GetObjectCollider();
+bool CheckCollision(SDL_Rect ObjectA, SDL_Rect ObjectB);
+
 // Input Events
 SDL_Event e;
 bool quit = false;
@@ -24,6 +28,7 @@ bool quit = false;
 // Player Character Variables
 const char* pikachuImagePath{ "img/pikachu.png" };
 SDL_Texture* Pikachu;
+SDL_Rect* pikachuCollider;
 bool pikachuMoveRight = false;
 int pik_x = 0;
 int pik_y = 0;
@@ -33,6 +38,7 @@ int pik_h = 200;
 //medkit variables
 const char* medKitImagePath{ "img/medkit.png" };
 SDL_Texture* medKit;
+SDL_Rect* medkitCollider;
 int medKit_w = 120;
 int medKit_h = 120;
 int medKit_X;
@@ -79,6 +85,9 @@ int main(int argc, char* args[])
 	while (quit == false) // This is tick
 	{
 		TickGame();
+		GetPlayerCollider();
+		GetObjectCollider();
+		CheckCollision(GetPlayerCollider(), GetObjectCollider());
 		
 		// clear the screen
 		WindowRenderer.Clear();
@@ -108,6 +117,11 @@ void TickGame()
 	TimeInSeconds = MillisecondsElapsedSinceStart / 1000; // millisecond to second conversion
 	//printf("Time Elapsed In Seconds %d\n", static_cast<int>(TimeInSeconds));
 	
+	if (CheckCollision(GetPlayerCollider(), GetObjectCollider()))
+	{
+		medKit_X = rand() % SCREEN_WIDTH;
+		medKit_Y = rand() % SCREEN_HEIGHT;
+	}
 
 		 if (teleportationCycle * delayBetweenTeleport < MillisecondsElapsedSinceStart) {
 			 teleportationCycle +=1;
@@ -167,4 +181,35 @@ void HandleInput() // Move this to playercontroller
 		if (pik_x > 1)
 			pik_x--;
 	}
+}
+
+// Establish a rectangle based on the variables that pikachu has (x, y, width, height)
+SDL_Rect GetPlayerCollider()
+{
+	SDL_Rect playerBoundingBox = { pik_x, pik_y, pik_w, pik_h };
+	return playerBoundingBox;
+}
+
+// Establish a rectangle based on the variables that the medkit has (x, y, width, height)
+SDL_Rect GetObjectCollider()
+{
+	SDL_Rect medKitBoundingBox = { medKit_X, medKit_Y, medKit_w, medKit_h };
+	return medKitBoundingBox;
+}
+
+// Compare two rects and check if they are overlapping with each other (e.g Medkit & Pikachu/Player)
+bool CheckCollision(SDL_Rect ObjectA, SDL_Rect ObjectB)
+{
+	// Checks if the right edge of ObjectA is to the -left- of the right edge of ObjectB.
+	bool xCollision = (ObjectA.x < ObjectB.x + ObjectB.w) && (ObjectA.x + ObjectA.w > ObjectB.x);
+
+	// Checks if the left edge of ObjectA is to the -left- of the left edge of ObjectB.
+	bool yCollision = (ObjectA.y < ObjectB.y + ObjectB.h) && (ObjectA.y + ObjectA.h > ObjectB.y);
+
+	if (xCollision && yCollision)
+	{
+		printf("Picked up health kit!\n");
+	}
+
+	return xCollision && yCollision;
 }
