@@ -2,6 +2,12 @@
 #include <cstdio> // for using printf
 #include <SDL_ttf.h> // font
 
+#include "Scripts/Game/GameInstance.h"
+
+
+Window::Window()
+{
+}
 
 Window::Window(int width, int height)
 {
@@ -39,6 +45,8 @@ Window::Window(int width, int height)
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");  // make the scaled rendering look smoother.
     SDL_RenderSetLogicalSize(renderer, 1024, 768);
+    
+    GameInstance::Instance()->Initialize();
 }
 
 void Window::Clear()

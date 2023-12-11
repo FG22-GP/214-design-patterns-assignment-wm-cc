@@ -7,6 +7,7 @@
 
 void TickGame();
 void HandleInput();
+PlayerCharacter* GetPlayerCharacter();
 
 //Screen dimension constants
 const int SCREEN_WIDTH = 1024;
@@ -47,6 +48,7 @@ int textHeight = 32;
 
 PlayerCharacter* PlayerCharacter;
 
+
 int main(int argc, char* args[])
 {
 	//The window we'll be rendering to
@@ -60,14 +62,11 @@ int main(int argc, char* args[])
 	//Load image at specified path
 	Pikachu = WindowRenderer.LoadTexture(pikachuImagePath);
 	if (Pikachu == nullptr) return 0;
-	
 
 	//Create a Medkit
 	medKit = WindowRenderer.LoadTexture(medKitImagePath);
 	if (medKit == nullptr) return 0;
-
-
-
+	
 
 	printf("%d\n", medKit_X);
 	printf("%d\n", medKit_Y);
@@ -112,10 +111,9 @@ void TickGame()
 
 		 if (teleportationCycle * delayBetweenTeleport < MillisecondsElapsedSinceStart) {
 			 teleportationCycle +=1;
-			 //crate medkit coordinates
+			 //create medkit coordinates
 			 medKit_X = rand() % SCREEN_WIDTH;
 			 medKit_Y = rand() % SCREEN_HEIGHT;
-
 		 }
 	HandleInput();
 	PlayerCharacter->Tick();

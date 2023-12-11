@@ -28,6 +28,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="Scripts\Game\GameInstance.cpp" />
     <ClCompile Include="Scripts\Player\PlayerCharacter.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -176,11 +177,15 @@
       <SDLCheck>true</SDLCheck>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="Scripts\UI\TextHandler.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scripts\Game\GameInstance.h" />
+    <ClInclude Include="Scripts\Interfaces\IObserver.h" />
     <ClInclude Include="Scripts\Player\PlayerCharacter.h" />
     <ClInclude Include="Scripts\Player\PlayerController.h" />
+    <ClInclude Include="Scripts\UI\TextHandler.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
@@ -194,7 +199,7 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Scripts\Helpers\RenderHelper.h" />
+    <ClInclude Include="Scripts\Interfaces\IHealth.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
