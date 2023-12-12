@@ -14,6 +14,7 @@ public:
     void BeginPlay();
     void Tick();
     void RenderPlayer();
+    int GetCurrentHealth();
 
 protected:
     // Player Character Variables

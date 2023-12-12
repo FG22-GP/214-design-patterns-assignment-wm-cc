@@ -10,11 +10,16 @@ PlayerCharacter::PlayerCharacter(int Health)
  {
      IHealth::TakeDamage(damageTaken);
      printf("AIEEEEEEE\n %d", CurrentHealth);
+
  }
+
+ int PlayerCharacter::GetCurrentHealth() {
+     return CurrentHealth;
+ }
+
 
 void PlayerCharacter::BeginPlay()
 {
-
 }
 
 void PlayerCharacter::Tick()

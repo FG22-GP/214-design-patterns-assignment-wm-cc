@@ -123,6 +123,12 @@ void TickGame()
 	TimeInSeconds = MillisecondsElapsedSinceStart / 1000; // millisecond to second conversion
 	//printf("Time Elapsed In Seconds %d\n", static_cast<int>(TimeInSeconds));
 	
+
+
+	if (PlayerCharacter->GetCurrentHealth() == 0) {
+		quit = true;
+	}
+
 	// CHECK FOR COLLISION WITH HEALTH PACK, IF TRUE, GIVE PLAYER HEALTH
 	if (CheckCollision(GetPlayerCollider(), GetObjectCollider()))
 	{
