@@ -126,8 +126,12 @@ void TickGame()
 	// CHECK FOR COLLISION WITH HEALTH PACK, IF TRUE, GIVE PLAYER HEALTH
 	if (CheckCollision(GetPlayerCollider(), GetObjectCollider()))
 	{
-		medKit_X = rand() % SCREEN_WIDTH;
-		medKit_Y = rand() % SCREEN_HEIGHT;
+		int rangeX = (SCREEN_WIDTH - 120) - 60 + 1;
+		medKit_X = rand() % rangeX + medKit_w / 2;
+
+		int rangeY = (SCREEN_HEIGHT - 120) - 60 + 1;
+		medKit_Y = rand() % rangeY + medKit_h / 2;
+
 
 		PlayerCharacter->GainHealth(5);
 	}
@@ -135,8 +139,11 @@ void TickGame()
 		 if (teleportationCycle * delayBetweenTeleport < MillisecondsElapsedSinceStart) {
 			 teleportationCycle +=1;
 			 //create medkit coordinates
-			 medKit_X = rand() % SCREEN_WIDTH;
-			 medKit_Y = rand() % SCREEN_HEIGHT;
+			 int rangeX = (SCREEN_WIDTH -120) -60  + 1;
+			 medKit_X = rand() % rangeX + medKit_w / 2;
+
+			 int rangeY = (SCREEN_HEIGHT - 120) -60 + 1;
+			 medKit_Y = rand() % rangeY + medKit_h / 2;
 
 			 PlayerCharacter->TakeDamage(1);
 		 }
