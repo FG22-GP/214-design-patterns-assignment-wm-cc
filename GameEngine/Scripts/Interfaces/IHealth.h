@@ -7,8 +7,9 @@
 class IHealth
 {
 public:
+
     virtual ~IHealth() = default;
-    // virtual void TakeDamage(int DamageTaken);
+    virtual void TakeDamage(int DamageTaken);
     void GainHealth(int HealthGained);
     int GetCurrentHealth();
     bool GetIsDead();
@@ -24,24 +25,31 @@ protected:
     std::list<IObserver*> ObserverList;
 };
 
-// inline void IHealth::TakeDamage(int damageTaken)
-// {
-//     if (bIsDead) return;
-//     
-//     CurrentHealth -= damageTaken;
-//     OnHitNotify();
-//     if (CurrentHealth <= 0)
-//     {
-//         OnDeathNotify();
-//         bIsDead = true;
-//     }
-// }
+ inline void IHealth::TakeDamage(int damageTaken)
+ {
+     if (bIsDead) return;
+     
+     CurrentHealth -= damageTaken;
+     OnHitNotify();
+     if (CurrentHealth <= 0)
+     {
+         OnDeathNotify();
+         bIsDead = true;
+     }
+ }
 
 inline void IHealth::GainHealth(int HealthGained)
 {
     if (bIsDead || CurrentHealth >= MaxHealth) return;
 
     CurrentHealth += HealthGained;
+
+    if (CurrentHealth + HealthGained > MaxHealth) 
+    {
+        CurrentHealth = MaxHealth;
+    }
+
+    printf("HEALTH: \n %d", CurrentHealth);
 }
 
 inline int IHealth::GetCurrentHealth()

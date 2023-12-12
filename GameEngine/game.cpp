@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include <stdio.h>
 #include "Window.h"
+#include "Scripts/Game/GameInstance.h"
 #include "Scripts/Player/PlayerCharacter.h"
 #include <random>
 
@@ -65,6 +66,11 @@ int main(int argc, char* args[])
 		return 0;
 	}
 
+	GameInstance* gameInstance = GameInstance::Instance();
+
+	// Access the PlayerCharacter instance
+	PlayerCharacter = gameInstance->GetPlayerCharacter();
+
 	//Load image at specified path
 	Pikachu = WindowRenderer.LoadTexture(pikachuImagePath);
 	if (Pikachu == nullptr) return 0;
@@ -117,10 +123,13 @@ void TickGame()
 	TimeInSeconds = MillisecondsElapsedSinceStart / 1000; // millisecond to second conversion
 	//printf("Time Elapsed In Seconds %d\n", static_cast<int>(TimeInSeconds));
 	
+	// CHECK FOR COLLISION WITH HEALTH PACK, IF TRUE, GIVE PLAYER HEALTH
 	if (CheckCollision(GetPlayerCollider(), GetObjectCollider()))
 	{
 		medKit_X = rand() % SCREEN_WIDTH;
 		medKit_Y = rand() % SCREEN_HEIGHT;
+
+		PlayerCharacter->GainHealth(5);
 	}
 
 		 if (teleportationCycle * delayBetweenTeleport < MillisecondsElapsedSinceStart) {
@@ -128,6 +137,8 @@ void TickGame()
 			 //create medkit coordinates
 			 medKit_X = rand() % SCREEN_WIDTH;
 			 medKit_Y = rand() % SCREEN_HEIGHT;
+
+			 PlayerCharacter->TakeDamage(1);
 		 }
 	HandleInput();
 	PlayerCharacter->Tick();

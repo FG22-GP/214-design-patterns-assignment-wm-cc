@@ -8,9 +8,9 @@ class PlayerCharacter : public IHealth
     
 public:
     
-    PlayerCharacter();
+    PlayerCharacter(int Health);
 
-    // void TakeDamage(int damageTaken) override;
+    void TakeDamage(int damageTaken) override;
     void BeginPlay();
     void Tick();
     void RenderPlayer();

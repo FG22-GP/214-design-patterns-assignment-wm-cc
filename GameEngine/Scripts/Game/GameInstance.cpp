@@ -4,7 +4,7 @@
 
 GameInstance::GameInstance()
 {
-    playerCharacter = new PlayerCharacter;
+    playerCharacter = new PlayerCharacter(10);
 }
 
 GameInstance::~GameInstance()

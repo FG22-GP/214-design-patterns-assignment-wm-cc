@@ -1,25 +1,25 @@
 ﻿#include "PlayerCharacter.h"
 #include <cstdio> // used for printf
 
-PlayerCharacter::PlayerCharacter()
+PlayerCharacter::PlayerCharacter(int Health)
 {
-    
+    CurrentHealth = Health;
 }
 
-// void PlayerCharacter::TakeDamage(int damageTaken)
-// {
-//     // IHealth::TakeDamage(DamageTaken);
-//     printf("asdf");
-// }
+ void PlayerCharacter::TakeDamage(int damageTaken)
+ {
+     IHealth::TakeDamage(damageTaken);
+     printf("AIEEEEEEE\n %d", CurrentHealth);
+ }
 
 void PlayerCharacter::BeginPlay()
 {
-    
+
 }
 
 void PlayerCharacter::Tick()
 {
-    // printf("Tick");
+     //printf("Tick");
 }
 
 void PlayerCharacter::RenderPlayer()
