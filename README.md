@@ -9,10 +9,13 @@ Minor :iteration , gameloop
 
 # Observer Pattern: 
 
-Why: Observer pattern is good when you have multiple actors that needs to react when a function gets called. The notifier does not need to have direct references to all of these actors that needs to react. 
+Why: 
+Observer pattern is good when you have multiple actors that needs to react when a function gets called. The notifier does not need to have direct references to all of these actors that needs to react. 
+
 This decouples the logic from the different areas of your game and you can have seperate scripts to make them single responsibility. For example; a particle system could subscribe to an OnHit event to play an OnHitVFX. We could also subscribe with a health bar UI to display the new health with the same OnHit notify.
 
-How: In our TextHandler, we subscribe to the player health change as an IObserver(interface). When a health change happens, we notify all IObserver actors that are "subscribed" to that function call. The observers themselves put themselves into the notifiers list. Then the notifier sends a "call to action" to all IObservers in that list.
+How: 
+In our TextHandler, we subscribe to the player health change as an IObserver(interface). When a health change happens, we notify all IObserver actors that are "subscribed" to that function call. The observers themselves put themselves into the notifiers list. Then the notifier sends a "call to action" to all IObservers in that list.
 
 ________________________________________________________________________________________________________________________________________________________________________________
 
