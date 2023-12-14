@@ -7,7 +7,7 @@ Major: Observer,Singleton
 Minor :iteration , gameloop
 
 
-#Observer Pattern: 
+# Observer Pattern: 
 
 Why: Observer pattern is good when you have multiple actors that needs to react when a function gets called. The notifier does not need to have direct references to all of these actors that needs to react. 
 This decouples the logic from the different areas of your game and you can have seperate scripts to make them single responsibility. For example; a particle system could subscribe to an OnHit event to play an OnHitVFX. We could also subscribe with a health bar UI to display the new health with the same OnHit notify.
@@ -28,7 +28,7 @@ what we learned: Singletons are useful as they run once so , theyre very good fo
 Only to grant access to objects that will be accessed often such as the player that will for exampled be accessed by enemies for detection, pathfinding towards the player,
 shooting at player, etc. Our game is simple so we only used one singleton because there wasn't really a need for it otherwise.
 
-/////////////////////////////////////////////////////////////////////////////////////////////
+________________________________________________________________________________________________________________________________________________________________________________
 
 Minor:
 
