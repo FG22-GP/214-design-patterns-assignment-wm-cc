@@ -2,20 +2,17 @@
 # marczaku-214-design-patterns-assignment
 
 
-Design Patterns used: 
-			Major: Observer,Singleton
-			Minor :iteration , gameloop
+Design Patterns used:
+Major: Observer,Singleton
+Minor :iteration , gameloop
 
 
+#Observer Pattern: 
 
-Observer: 
+Why: Observer pattern is good when you have multiple actors that needs to react when a function gets called. The notifier does not need to have direct references to all of these actors that needs to react. 
+This decouples the logic from the different areas of your game and you can have seperate scripts to make them single responsibility. For example; a particle system could subscribe to an OnHit event to play an OnHitVFX. We could also subscribe with a health bar UI to display the new health with the same OnHit notify.
 
-Why: We selected this pattern becuase it seems very useful and common in larger project. Innitial inspiration and evidence of it's usefulness was the game Bastion and its
-of the observer pattern for the narrator of the game.
-
-How: We used observers to determine player health , damage dealt to the player and damage healed when picking up medkits
-
-What we learned:
+How: In our TextHandler, we subscribe to the player health change as an IObserver(interface). When a health change happens, we notify all IObserver actors that are "subscribed" to that function call. The observers themselves put themselves into the notifiers list. Then the notifier sends a "call to action" to all IObservers in that list.
 
 ________________________________________________________________________________________________________________________________________________________________________________
 
