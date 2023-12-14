@@ -47,12 +47,6 @@ int medKit_Y;
 float delayBetweenTeleport = 3000;
 float teleportationCycle = 0;
 
-// Text Variables
-const char* lazyFontPath{ "font/lazy.ttf" };
-SDL_Texture* Text;
-int textWidth = 32;
-int textHeight = 32;
-
 PlayerCharacter* PlayerCharacter;
 
 
@@ -67,6 +61,7 @@ int main(int argc, char* args[])
 	}
 
 	GameInstance* gameInstance = GameInstance::Instance();
+	gameInstance->Initialize(WindowRenderer.GetWindow());
 
 	// Access the PlayerCharacter instance
 	PlayerCharacter = gameInstance->GetPlayerCharacter();
@@ -79,17 +74,10 @@ int main(int argc, char* args[])
 	medKit = WindowRenderer.LoadTexture(medKitImagePath);
 	if (medKit == nullptr) return 0;
 	
-
-	printf("%d\n", medKit_X);
-	printf("%d\n", medKit_Y);
-
-	// load font
-	Text = WindowRenderer.LoadFont(lazyFontPath, 64, textWidth, textHeight);
-	if (Text == nullptr) return 0;
-	
 	// while the user doesn't want to quit
 	while (quit == false) // This is tick
 	{
+		gameInstance->Tick();
 		TickGame();
 		GetPlayerCollider();
 		GetObjectCollider();
@@ -105,12 +93,6 @@ int main(int argc, char* args[])
 		// render Medkit
 		WindowRenderer.RenderTexture(medKit, medKit_X, medKit_Y , medKit_w, medKit_h);
 
-		// render the text
-		WindowRenderer.RenderTexture(Text, 1, 1, textWidth, textHeight);
-
-		// Render window
-		WindowRenderer.Present();
-
 		SDL_Delay(0); // can be used to wait for a certain amount of ms
 	}
 
@@ -123,8 +105,6 @@ void TickGame()
 	TimeInSeconds = MillisecondsElapsedSinceStart / 1000; // millisecond to second conversion
 	//printf("Time Elapsed In Seconds %d\n", static_cast<int>(TimeInSeconds));
 	
-
-
 	if (PlayerCharacter->GetCurrentHealth() == 0) {
 		quit = true;
 	}
@@ -137,9 +117,8 @@ void TickGame()
 
 		int rangeY = (SCREEN_HEIGHT - 120) - 60 + 1;
 		medKit_Y = rand() % rangeY + medKit_h / 2;
-
-
-		PlayerCharacter->GainHealth(5);
+		
+		PlayerCharacter->GainHealth(1);
 	}
 
 		 if (teleportationCycle * delayBetweenTeleport < MillisecondsElapsedSinceStart) {
@@ -153,8 +132,8 @@ void TickGame()
 
 			 PlayerCharacter->TakeDamage(1);
 		 }
+	
 	HandleInput();
-	PlayerCharacter->Tick();
 }
 
 void HandleInput() // Move this to playercontroller
@@ -167,18 +146,6 @@ void HandleInput() // Move this to playercontroller
 		case SDL_QUIT: {
 				quit = true;
 		} break;
-
-			// 	// This is an example on how to use input events:
-			// case SDL_KEYDOWN: {
-			// 	// input example: if left, then make pikachu move left
-			// 	if (e.key.keysym.sym == SDLK_LEFT) {
-			// 		pikachuMoveRight = false;
-			// 	}
-			// 	// if right, then make pikachu move right
-			// 	if (e.key.keysym.sym == SDLK_RIGHT) {
-			// 		pikachuMoveRight = true;
-			// 	}
-			// } break;
 		} 
 	}
 	
@@ -232,7 +199,7 @@ bool CheckCollision(SDL_Rect ObjectA, SDL_Rect ObjectB)
 
 	if (xCollision && yCollision)
 	{
-		printf("Picked up health kit!\n");
+		// printf("Picked up health kit!\n");
 	}
 
 	return xCollision && yCollision;

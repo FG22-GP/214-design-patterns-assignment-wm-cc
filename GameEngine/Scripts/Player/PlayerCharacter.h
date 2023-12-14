@@ -11,10 +11,7 @@ public:
     PlayerCharacter(int Health);
 
     void TakeDamage(int damageTaken) override;
-    void BeginPlay();
-    void Tick();
-    void RenderPlayer();
-    int GetCurrentHealth();
+    void GainHealth(int HealthGained) override;
 
 protected:
     // Player Character Variables

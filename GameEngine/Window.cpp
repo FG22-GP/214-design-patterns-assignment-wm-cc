@@ -45,8 +45,11 @@ Window::Window(int width, int height)
 
     SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "linear");  // make the scaled rendering look smoother.
     SDL_RenderSetLogicalSize(renderer, 1024, 768);
-    
-    GameInstance::Instance()->Initialize();
+}
+
+Window* Window::GetWindow()
+{
+    return this;
 }
 
 void Window::Clear()
@@ -93,7 +96,7 @@ SDL_Texture* Window::LoadTexture(const char* TextureFilePath)
     return texture;
 }
 
-SDL_Texture* Window::LoadFont(const char* FontPath, int FontSize, int& TextWidth, int& TextHeight)
+SDL_Texture* Window::LoadFont(const char* FontPath, int FontSize, int& TextWidth, int& TextHeight, const char* text)
 {
     auto font = TTF_OpenFont(FontPath, FontSize);
     
@@ -109,7 +112,7 @@ SDL_Texture* Window::LoadFont(const char* FontPath, int FontSize, int& TextWidth
     SDL_Texture* textTexture; // The final optimized image
 
     // render the text into an unoptimized CPU surface
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, "FPS: ", textColor);
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, textColor);
     if (textSurface == NULL)
     {
         printf("Unable to render text surface! SDL_ttf Error: %s\n", TTF_GetError());

@@ -10,13 +10,13 @@ public:
 
     virtual ~IHealth() = default;
     virtual void TakeDamage(int DamageTaken);
-    void GainHealth(int HealthGained);
+    virtual void GainHealth(int HealthGained);
     int GetCurrentHealth();
     bool GetIsDead();
     void AddObserver(IObserver* observer);
     void RemoveObserver(IObserver* observer);
     void OnDeathNotify();
-    void OnHitNotify();
+    void OnHealthChangeNotify();
 
 protected:
     int MaxHealth = 10;
@@ -30,7 +30,7 @@ protected:
      if (bIsDead) return;
      
      CurrentHealth -= damageTaken;
-     OnHitNotify();
+     OnHealthChangeNotify();
      if (CurrentHealth <= 0)
      {
          OnDeathNotify();
@@ -43,13 +43,13 @@ inline void IHealth::GainHealth(int HealthGained)
     if (bIsDead || CurrentHealth >= MaxHealth) return;
 
     CurrentHealth += HealthGained;
+     
+     OnHealthChangeNotify();
 
     if (CurrentHealth + HealthGained > MaxHealth) 
     {
         CurrentHealth = MaxHealth;
     }
-
-    printf("HEALTH: \n %d", CurrentHealth);
 }
 
 inline int IHealth::GetCurrentHealth()
@@ -76,14 +76,14 @@ inline void IHealth::OnDeathNotify()
 {
     for (IObserver* observer : ObserverList)
     {
-        observer->OnNotify();
+        observer->OnHealthChangeNotify(0);
     }
 }
 
-inline void IHealth::OnHitNotify()
+inline void IHealth::OnHealthChangeNotify()
 {
     for (IObserver* observer : ObserverList)
     {
-        observer->OnNotify(CurrentHealth);
+        observer->OnHealthChangeNotify(CurrentHealth);
     }
 }
