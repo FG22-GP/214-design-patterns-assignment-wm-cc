@@ -24,7 +24,7 @@ SDL_Event e;
 bool quit = false;
 
 // Player Image
-const char* pikachuImagePath{ "img/pikachu.png" };
+const char* pikachuImagePath{ "img/Garfield.png" };
 
 // MedKit Image
 const char* medKitImagePath{ "img/medkit.png" };
