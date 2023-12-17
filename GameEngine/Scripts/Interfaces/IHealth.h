@@ -22,7 +22,7 @@ protected:
     int MaxHealth = 10;
     int CurrentHealth = 10;
     bool bIsDead = false;
-    std::list<IObserver*> ObserverList;
+    std::list<IObserver*> ObserverList; // list of observers to notify 
 };
 
  inline void IHealth::TakeDamage(int damageTaken)

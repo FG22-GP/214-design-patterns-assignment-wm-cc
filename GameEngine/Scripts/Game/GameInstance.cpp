@@ -1,11 +1,13 @@
 ﻿#include "GameInstance.h"
 
 #include "../Player/PlayerCharacter.h"
+#include "../Physics/CollisionManager.h"
+#include "../../Medkit.h"
 #include "../UI/TextHandler.h"
 
 GameInstance::GameInstance()
 {
-    // playerCharacter = new PlayerCharacter(10);
+    
 }
 
 GameInstance::GameInstance(Window* window)
@@ -22,17 +24,14 @@ GameInstance::~GameInstance()
 
 bool GameInstance::Initialize(Window* window)
 {
-    printf("initalized");
-    
     GameWindow = window;
     playerCharacter = new PlayerCharacter(10);
     HealthText = new TextHandler(GameWindow);
     playerCharacter->AddObserver(HealthText);
-    
+    medKit = new Medkit();
     
     if (playerCharacter == nullptr)
     {
-        printf("player character is null");
         return false;
     }
     return true;
@@ -51,6 +50,16 @@ void GameInstance::Tick()
 PlayerCharacter* GameInstance::GetPlayerCharacter() const
 {
     return playerCharacter;
+}
+
+CollisionManager* GameInstance::GetCollisionManager() const
+{
+    return collisionManager;
+}
+
+Medkit* GameInstance::GetMedKit() const 
+{
+    return medKit;
 }
 
 GameInstance* GameInstance::Instance()

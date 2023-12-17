@@ -28,7 +28,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="Medkit.cpp" />
     <ClCompile Include="Scripts\Game\GameInstance.cpp" />
+    <ClCompile Include="Scripts\Physics\CollisionManager.cpp" />
     <ClCompile Include="Scripts\Player\PlayerCharacter.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -181,8 +183,10 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Medkit.h" />
     <ClInclude Include="Scripts\Game\GameInstance.h" />
     <ClInclude Include="Scripts\Interfaces\IObserver.h" />
+    <ClInclude Include="Scripts\Physics\CollisionManager.h" />
     <ClInclude Include="Scripts\Player\PlayerCharacter.h" />
     <ClInclude Include="Scripts\Player\PlayerController.h" />
     <ClInclude Include="Scripts\UI\TextHandler.h" />
