@@ -2,6 +2,13 @@
 # marczaku-214-design-patterns-assignment
 
 
+
+#### NOTE ####
+
+IDK how to put screenshots and a video here so check a folder named "Screenshots"
+
+
+
 Design Patterns used:
 Major: Observer,Singleton
 Minor :iteration , gameloop
